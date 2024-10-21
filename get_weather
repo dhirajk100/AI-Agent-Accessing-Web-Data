@@ -1,0 +1,21 @@
+import requests
+
+def get_weather(city):
+    """Fetches weather information for a given city using an API."""
+    api_key = "your_openweather_api_key"  # Replace with your actual API key
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+    
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            temp = data['main']['temp']
+            description = data['weather'][0]['description']
+            print(f"The weather in {city} is {description} with a temperature of {temp}°C.")
+        else:
+            print("Error fetching the weather data. Check the city name or API key.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+# Example usage
+get_weather("New York")
